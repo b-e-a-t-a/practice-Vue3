@@ -11,6 +11,7 @@
 import TaskCreator from '../components/TaskCreator.vue';
 import TaskList from '../components/TaskList.vue';
 import {useTodos} from "../composables/useTodos";
+import {useLocalStorage} from "../composables/useLocalStorage";
 
 export default {
   name: "TasksViewComposedAPI",
@@ -23,6 +24,11 @@ export default {
       onTodoChanged
     } = useTodos()
 
+    // funkcja która przyjmuje dowolną reaktywną zmienną i ją obserwuje
+    // "todos" - klucz od którym zapisywane lub odczytywane są z localStorage
+    // todos - reaktywna lista todosów
+    useLocalStorage("todos", todos)
+
     //zwracamy funkcje, properties które powinny być dostępne w widoku
     return {
       todos,
@@ -31,17 +37,6 @@ export default {
       onTodoChanged
     }
   }
-  // mounted() {
-  //   const storedTodos = window.localStorage.getItem('todos')
-  //   if (storedTodos) {
-  //     this.todos = JSON.parse(storedTodos)
-  //   }
-  // },
-  // watch: {
-  //   todos(value) {
-  //     window.localStorage.setItem('todos', JSON.stringify(value))
-  //   }
-  // }
 }
 </script>
 

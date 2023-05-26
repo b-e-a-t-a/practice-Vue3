@@ -4,18 +4,22 @@
       <TaskCreator @created="onTodoCreated($event)"/>
       <TaskList :todos="todos" @changed="onTodoChanged($event)" @deleted="onTodoDeleted($event)" />
     </div>
+    <div class="mx-auto mt-4">
+      <NotepadField />
+    </div>
   </div>
 </template>
 
 <script>
 import TaskCreator from '../components/TaskCreator.vue';
 import TaskList from '../components/TaskList.vue';
+import NotepadField from '../components/NotepadField.vue';
 import {useTodos} from "../composables/useTodos";
 import {useLocalStorage} from "../composables/useLocalStorage";
 
 export default {
   name: "TasksViewComposedAPI",
-  components: {TaskCreator, TaskList},
+  components: {TaskCreator, TaskList, NotepadField},
   setup() { //pkt wyjściowy w kontekscie danego komonentu, gdzie rejestrujemy wszystkie funkcje /composables, hooki/
     const {
       todos,

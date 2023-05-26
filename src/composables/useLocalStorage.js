@@ -11,8 +11,8 @@ export function useLocalStorage(key, ref) {
       // aktualizujemy refa którego przekazujemy
       ref.value = JSON.parse(storedTodos)
     }
-
   })
+
   watch(ref, () => {
     window.localStorage.setItem(key, JSON.stringify(ref.value))
   })

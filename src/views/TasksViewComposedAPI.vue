@@ -3,9 +3,9 @@
     <div>
       <TaskCreator @created="onTodoCreated($event)"/>
       <TaskList :todos="todos" @changed="onTodoChanged($event)" @deleted="onTodoDeleted($event)" />
-    </div>
-    <div class="mx-auto mt-4">
-      <NotepadField />
+      <div class="mx-auto mt-4">
+        <NotepadField />
+      </div>
     </div>
   </div>
 </template>

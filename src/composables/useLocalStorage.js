@@ -16,4 +16,13 @@ export function useLocalStorage(key, ref) {
   watch(ref, () => {
     window.localStorage.setItem(key, JSON.stringify(ref.value))
   })
+
+  const clearEntry = (refValue) => {
+    ref.value = refValue;
+    window.localStorage.setItem(key, refValue)
+  }
+
+  return {
+    clearEntry
+  }
 }

@@ -20,7 +20,7 @@ export default {
   name: "NotepadField",
   setup() {
     let notes = ref("");
-    const {clearEntry} = useLocalStorage("note", notes)
+    const {clearEntry} = useLocalStorage("note", notes);
 
     return {
       notes,

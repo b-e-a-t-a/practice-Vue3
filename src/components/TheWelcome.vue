@@ -1,10 +1,48 @@
-<script setup>
+<script setup> // simplify usage with SFC, no setup() nor return needed
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import { ref, reactive, computed } from 'vue'
+
+const count = ref(100);
+function incrementRef() {
+  return count.value++;
+}
+
+const state = reactive({ count: 50 })
+function incrementReactive() {
+  return state.count++;
+}
+
+let { countDes } = state
+function incrementReactiveDestructure() {
+  return countDes++;
+}
+
+const quantity = ref(0);
+const price = ref(100);
+const totalPrice = ref(0);
+const tax = ref(0);
+
+function makeOrder() {
+  quantity.value++;
+  totalPrice.value = quantity.value * price.value;
+  tax.value = totalPrice.value * 0.23;
+}
+
+const orderState = reactive({
+  quantity: 0,
+  price : 100,
+  totalPrice: computed(() => orderState.quantity * orderState.price),
+  tax: computed(() => orderState.totalPrice * 0.23)
+})
+
+function makeOrderReactive() {
+  orderState.quantity++;
+}
 </script>
 
 <template>
@@ -12,31 +50,45 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>Documentation</template>
+    <template #heading>Ref - setup</template>
 
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
+    <button class="btn btn-warning btn-md" @click="incrementRef">Increment</button>
+    <p>Counter is: {{ count }}</p>
+
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <ToolingIcon />
     </template>
-    <template #heading>Tooling</template>
+    <template #heading>Reactive and computed</template>
 
-    This project is served and bundled with
-    <a href="https://vitejs.dev/guide/features.html" target="_blank" rel="noopener">Vite</a>. The
-    recommended IDE setup is
-    <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>. If
-    you need to test your components and web pages, check out
-    <a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a> and
-    <a href="https://on.cypress.io/component" target="_blank">Cypress Component Testing</a>.
+    <button class="btn btn-warning btn-md" @click="incrementReactive">Increment</button>
+    <p>Counter is: {{ state.count }}</p>
 
     <br />
 
-    More instructions are available in <code>README.md</code>.
+    <button class="btn btn-danger btn-md" @click="incrementReactiveDestructure">Increment</button>
+    <p>Counter Destructure is: {{ countDes }}</p>
+
+    <br />
+    <div>
+      <h2>Price: {{ price }} PLN</h2>
+      <button class="btn btn-info" @click="makeOrder">Make order</button>
+      <p>quantity {{ quantity }}</p>
+      <p>total price: {{ totalPrice }}</p>
+      <p>tax: {{ tax }}</p>
+    </div>
+
+    <br />
+    <div>
+      <h2>Price: {{ orderState.price }} PLN</h2>
+      <button class="btn btn-info" @click="makeOrderReactive">Make order</button>
+      <p>quantity {{ orderState.quantity }}</p>
+      <p>total price: {{ orderState.totalPrice }}</p>
+      <p>tax: {{ orderState.tax }}</p>
+    </div>
+
   </WelcomeItem>
 
   <WelcomeItem>
@@ -65,22 +117,14 @@ import SupportIcon from './icons/IconSupport.vue'
     <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a>, our official
     Discord server, or
     <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank" rel="noopener"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a href="https://news.vuejs.org" target="_blank" rel="noopener">our mailing list</a> and follow
-    the official
-    <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
-    twitter account for latest news in the Vue world.
+      >StackOverflow</a>.
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading>Support Vue</template>
+    <template #heading>Support</template>
 
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
   </WelcomeItem>
 </template>

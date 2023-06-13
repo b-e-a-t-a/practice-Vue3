@@ -5,7 +5,7 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 
 const count = ref(100);
 function incrementRef() {
@@ -43,6 +43,26 @@ const orderState = reactive({
 function makeOrderReactive() {
   orderState.quantity++;
 }
+
+const shares = ref(15);
+const sharePrice = ref(20);
+const sharesValue = computed(() => shares.value * sharePrice.value);
+function changeNumberOfShares(number) {
+  if (shares.value + number >=0 ) {
+    shares.value += number
+  }
+}
+
+function getPrice(min, max) {
+  const priceDiff = Math.floor(Math.random() * (max - min) + min) //losujemy liczbę z zakresu max,min
+  if (sharePrice.value + priceDiff >=0) {
+    sharePrice.value += priceDiff
+  }
+}
+// do obserwacji czy liczba akcji rośnie i wtedy będziemy zwiększać ich cenę, jeśli liczba akcji spada to ich cena będzie maleć
+watch(shares, (actualShares, prevShares) => {
+  actualShares > prevShares ? getPrice(1, 5) : getPrice(-5, -1)
+})
 </script>
 
 <template>
@@ -95,7 +115,7 @@ function makeOrderReactive() {
     <template #icon>
       <EcosystemIcon />
     </template>
-    <template #heading>Ecosystem</template>
+    <template #heading>Shares</template>
 
     Get official tools and libraries for your project:
     <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
@@ -105,6 +125,19 @@ function makeOrderReactive() {
     you need more resources, we suggest paying
     <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">Awesome Vue</a>
     a visit.
+
+
+    <div>
+      <p>You have
+        <strong>{{ shares }}</strong> shares and their value is
+        <strong>{{ sharesValue }} PLN</strong>, share price is
+        <strong>{{ sharePrice }}</strong> PLN.
+      </p>
+      <button class="btn btn-success mx-1" @click="changeNumberOfShares(1)">Buy 1 share</button>
+      <button class="btn btn-success mx-1" @click="changeNumberOfShares(5)">Buy 5 shares</button>
+      <button class="btn btn-warning mx-1" @click="changeNumberOfShares(-1)">Sell 1 share</button>
+      <button class="btn btn-warning mx-1" @click="changeNumberOfShares(-5)">Sell 5 shares</button>
+    </div>
   </WelcomeItem>
 
   <WelcomeItem>

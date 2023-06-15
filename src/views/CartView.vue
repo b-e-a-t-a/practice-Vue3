@@ -18,7 +18,11 @@
     <AddToCartButton
       :disabled="!products"
       @add-item-to-cart="increaseNumberOfItems"
-    />
+    >
+      <template #text>
+        <span>soother</span>
+      </template>
+    </AddToCartButton>
     <BaseNotification
       :message="notificationText"
       :isVisible="isNotificationVisible"

@@ -1,6 +1,8 @@
 <template>
   <button class="btn btn-warning" @click="addItem" :style="btnAdd">
+    <slot name="icon">+</slot>
     Add to cart
+    <slot name="text">item</slot>
   </button>
 </template>
 

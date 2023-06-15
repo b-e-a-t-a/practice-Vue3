@@ -15,7 +15,10 @@ export default {
   name: "TaskList",
   emits: ["changed", "deleted"],
   props: {
-    todos: Array
+    todos: {
+      type: Array,
+      default: () => []
+    }
   },
   methods: {
     onTodoDelete(id) {

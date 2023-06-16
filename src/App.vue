@@ -16,6 +16,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/cart">Cart</RouterLink>
         <RouterLink to="/nurseries">Nurseries</RouterLink>
         <RouterLink to="/names">Names</RouterLink>
+        <RouterLink to="/form">Form</RouterLink>
       </nav>
     </div>
   </header>

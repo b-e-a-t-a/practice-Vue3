@@ -1,7 +1,17 @@
 <template>
   <div class="container">
     <div class="buttons">
+      <BaseInput
+        name="input"
+        v-model:firstName="firstName"
+        v-model:lastName="lastName"
+      />
+      <p class="result">{{ firstName }}</p>
+      <p class="result">{{ lastName }}</p>
+      <BaseButton @click="revertText" text="Revert text" />
+
       <BaseButton text="Log in" @click="isModalVisible = true" />
+
       <BaseButton
         text="Click events"
         @click="handleMouseEvent"
@@ -40,8 +50,8 @@
       <ul>
         <li v-for="({key, type}, index) in keyEventsArray" :key="index">{{ key }} {{ type }}</li>
       </ul>
-
     </div>
+
     <teleport to="#modal">
       <BaseModal v-show="isModalVisible" @close-modal="closeModal"/>
     </teleport>
@@ -54,10 +64,11 @@ import { ref } from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import BaseFooter from "../components/BaseFooter.vue";
 import BaseModal from "../components/BaseModal.vue";
+import BaseInput from "../components/BaseInput.vue";
 
 export default {
   name: "FormView",
-  components: { BaseButton, BaseFooter, BaseModal },
+  components: { BaseButton, BaseFooter, BaseModal, BaseInput },
   setup() {
     const isModalVisible = ref(false);
     const mouseEventsArray = ref([]);
@@ -80,7 +91,34 @@ export default {
       isMessageSent.value = true;
     }
 
-    return { isModalVisible, closeModal, mouseEventsArray, handleMouseEvent, keyEventsArray, handleKeyEvent, isMessageSent, sendMessage };
+    const text = ref("");
+    const firstName = ref("");
+    const lastName = ref("");
+    function revertText() {
+      firstName.value = firstName.value
+        .split('')
+        .reverse()
+        .join('');
+      lastName.value = lastName.value
+        .split('')
+        .reverse()
+        .join('');
+    }
+
+    return {
+      isModalVisible,
+      closeModal,
+      mouseEventsArray,
+      handleMouseEvent,
+      keyEventsArray,
+      handleKeyEvent,
+      isMessageSent,
+      sendMessage,
+      text,
+      revertText,
+      firstName,
+      lastName
+    };
   }
 }
 </script>
@@ -117,4 +155,6 @@ export default {
     display: flex
     justify-content: center
     align-items: center
+  .result
+    margin: 30px auto
 </style>

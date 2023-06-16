@@ -28,6 +28,7 @@ export default {
   justify-content: center
   align-items: center
   transition: background-color 0.1s ease-in, color 0.1s ease-in, border-color 0.1s ease-in
+  margin: 5px
   &:hover
     color: #00bd7e
     background-color: transparent

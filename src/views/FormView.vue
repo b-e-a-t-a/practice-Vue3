@@ -1,6 +1,47 @@
 <template>
   <div class="container">
-    <BaseButton text="Log in" @click="isModalVisible = true" />
+    <div class="buttons">
+      <BaseButton text="Log in" @click="isModalVisible = true" />
+      <BaseButton
+        text="Click events"
+        @click="handleMouseEvent"
+        @dblclick="handleMouseEvent"
+        @mousedown.left="handleMouseEvent"
+        @mouseup.middle="handleMouseEvent"
+        @mousemove.once="handleMouseEvent"
+        @mouseover="handleMouseEvent"
+        @mouseleave="handleMouseEvent"
+        @mousewheel="handleMouseEvent"
+        @mouseout="handleMouseEvent"
+        @contextmenu.prevent="handleMouseEvent"
+      />
+
+      <form class="form" @submit.prevent="sendMessage"> <!-- modyfikator zapobiega domyślnej akcji przeładowania strony po wysłaniu -->
+        <input
+          type="text"
+          placeholder="Type something"
+          class="input"
+          @keypress.space="handleKeyEvent"
+          @keydown.shift.s.exact="handleKeyEvent"
+          @keyup.alt.s="handleKeyEvent"
+        />
+        <BaseButton text="Submit"/>
+      </form>
+      <p v-show="isMessageSent">Message has been sent</p>
+
+      <div class="outer" @click="handleMouseEvent">
+        <div class="inner" @click.stop="handleMouseEvent"></div> <!-- modyfikator zapobiega propagacji zdarzeń -->
+      </div>
+
+      <ul>
+        <li v-for="(event, index) in mouseEventsArray" :key="index">{{ event }}</li>
+      </ul>
+
+      <ul>
+        <li v-for="({key, type}, index) in keyEventsArray" :key="index">{{ key }} {{ type }}</li>
+      </ul>
+
+    </div>
     <teleport to="#modal">
       <BaseModal v-show="isModalVisible" @close-modal="closeModal"/>
     </teleport>
@@ -19,11 +60,27 @@ export default {
   components: { BaseButton, BaseFooter, BaseModal },
   setup() {
     const isModalVisible = ref(false);
+    const mouseEventsArray = ref([]);
+    const keyEventsArray = ref([]);
+    const isMessageSent = ref(false);
 
     function closeModal() {
       isModalVisible.value = false;
     }
-    return { isModalVisible, closeModal };
+
+    function handleMouseEvent({type}) {
+      mouseEventsArray.value = [...mouseEventsArray.value, type]
+    }
+
+    function handleKeyEvent({key, type}) {
+      keyEventsArray.value = [...keyEventsArray.value, {key, type}]
+    }
+
+    function sendMessage() {
+      isMessageSent.value = true;
+    }
+
+    return { isModalVisible, closeModal, mouseEventsArray, handleMouseEvent, keyEventsArray, handleKeyEvent, isMessageSent, sendMessage };
   }
 }
 </script>
@@ -35,5 +92,29 @@ export default {
   display: flex
   justify-content: center
   align-items: center
-  margin: 20px 10px
+  margin-top: 20px
+  .buttons
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 10px
+  .input
+    margin: 10px
+  .outer
+    width: 100px
+    height: 100px
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #42b883
+    margin-top: 10px
+  .inner
+    width: 50px
+    height: 50px
+    background-color: #35495e
+  .form
+    display: flex
+    justify-content: center
+    align-items: center
 </style>

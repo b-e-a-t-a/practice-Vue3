@@ -33,6 +33,12 @@ const router = createRouter({
       component: () => import('../views/SootherNamesView.vue')
     },
     {
+      path: '/name/:id',
+      name: 'itemView',
+      component: () => import('../views/SootherItemView.vue'),
+      props: true
+    },
+    {
       path: '/form',
       name: 'form',
       component: () => import('../views/FormView.vue')

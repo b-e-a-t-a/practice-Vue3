@@ -1,10 +1,6 @@
 <template>
   <section class="wrapper">
-    <div v-if="error" class="error">
-      <p>Smoething went wrong. See below error details:</p>
-      <p>{{error}}</p>
-    </div>
-    <Suspense v-else>
+    <Suspense>
       <template #default>
         <SootherItemDetails :id="id"/>
       </template>
@@ -16,7 +12,6 @@
 </template>
 
 <script>
-import { ref, onErrorCaptured } from "vue";
 import BaseLoader from "@/components/BaseLoader.vue";
 import SootherItemDetails from "@/components/apis/SootherItemDetails.vue";
 
@@ -32,15 +27,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  setup() {
-    const error = ref(null);
-
-    onErrorCaptured((e) => {
-      error.value = e;
-    });
-
-    return { error };
   }
 }
 </script>
@@ -51,10 +37,8 @@ export default {
   margin: 20px auto
   padding: 20px
   position: relative
-  // min-height: 100vh
+  min-height: 50vh
+  min-width: 40vw
   background-color: #000
   color: #fcd711
-.error
-  color: #cd3727
-  text-align: center
 </style>

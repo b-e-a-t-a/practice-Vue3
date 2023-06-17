@@ -42,6 +42,11 @@ const router = createRouter({
       path: '/form',
       name: 'form',
       component: () => import('../views/FormView.vue')
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'notFound',
+      component: () => import('../views/NotFound.vue')
     }
   ]
 })

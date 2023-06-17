@@ -51,6 +51,11 @@ export default {
       products.value--;
     }
 
+    // function increaseNumberOfItems(quantity) {
+    //   numberOfItems.value += quantity
+    //   isNotificationVisible.value = true
+    // }
+
     function increaseNumberOfItems({name, quantity}) {
       itemName.value = name
       numberOfItems.value += quantity

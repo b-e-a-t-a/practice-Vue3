@@ -1,0 +1,1 @@
+import{_ as a,o as t,c as _,s as c,x as d,a as s}from"./index-a8b15d3c.js";const n={name:"BaseLoader"},o=e=>(c("data-v-423eefad"),e=e(),d(),e),p={class:"lds-ripple"},r=o(()=>s("div",null,null,-1)),l=o(()=>s("div",null,null,-1)),i=[r,l];function u(e,f,h,v,B,m){return t(),_("div",p,i)}const I=a(n,[["render",u],["__scopeId","data-v-423eefad"]]);export{I as B};

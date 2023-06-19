@@ -1,13 +1,13 @@
 {
-  "homepage": "http://b-e-a-t-a.github.io/practice-Vue3",
+  "homepage": "http://b-e-a-t-a.github.io/practice-Vue3/",
   "name": "vue3-project",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/"

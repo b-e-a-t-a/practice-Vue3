@@ -1,6 +1,9 @@
 # vue3-project
 
-This template should help get you started developing with Vue 3 in Vite.
+View in [Github Pages](https://b-e-a-t-a.github.io/practice-Vue3/) or directly on [Github](https://github.com/b-e-a-t-a/practice-Vue3/) 
+
+
+Template to start developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 

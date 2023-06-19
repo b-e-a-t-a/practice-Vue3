@@ -1,11 +1,13 @@
 <template>
   <div class="container">
-    <div class="product">
+    <div class="product-card">
       <p>Products: {{ products }}</p>
-      <img src="https://static.gemini.pl/assets/produkty/0083311/canpol-smoczek-silikonowy-uspokajajacy-toys-6-18-miesiaca-1-sztuka-15925049731.jpg" class="product__img">
-      <p v-if="products > 3"> Many in stock </p>
-      <p v-else-if="products > 0 && products <= 3">Hurry up, only few in stock!</p>
-      <p v-else>Sorry, out of stock</p>
+      <img src="https://static.gemini.pl/assets/produkty/0083311/canpol-smoczek-silikonowy-uspokajajacy-toys-6-18-miesiaca-1-sztuka-15925049731.jpg" class="product-card__img">
+      <p class="product-card__text">Soother Car for You</p>
+      <p class="product-card__text">120.00 PLN</p>
+      <p v-if="products > 3" class="product-card__availability" :class="{'hight': products > 3}"> Many in stock </p>
+      <p v-else-if="products > 0 && products <= 3" class="product-card__availability">Hurry up, only few in stock!</p>
+      <p v-else class="product-card__availability">Sorry, out of stock</p>
       <button
         class="btn-buy"
         :disabled="!products"
@@ -31,50 +33,35 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import AddToCartButton from '../components/AddToCartButton.vue';
 import BaseNotification from '../components/BaseNotification.vue';
 import { ref, computed } from 'vue';
 
-export default {
-  name: "CartView",
-  components: { AddToCartButton, BaseNotification },
-  setup() {
-    const products = ref(5);
+const products = ref(5);
 
-    const numberOfItems = ref(0);
-    let itemName = ref('');
-    const notificationText = computed(() => `Number of ${itemName.value} items in cart: ${numberOfItems.value}`)
-    const isNotificationVisible = ref(false);
+const numberOfItems = ref(0);
+let itemName = ref('');
+const notificationText = computed(() => `Number of ${itemName.value} items in cart: ${numberOfItems.value}`)
+const isNotificationVisible = ref(false);
 
-    function buyProduct() {
-      products.value--;
-    }
+function buyProduct() {
+  products.value--;
+}
 
-    // function increaseNumberOfItems(quantity) {
-    //   numberOfItems.value += quantity
-    //   isNotificationVisible.value = true
-    // }
+// function increaseNumberOfItems(quantity) {
+//   numberOfItems.value += quantity
+//   isNotificationVisible.value = true
+// }
 
-    function increaseNumberOfItems({name, quantity}) {
-      itemName.value = name
-      numberOfItems.value += quantity
-      isNotificationVisible.value = true
-    }
+function increaseNumberOfItems({name, quantity}) {
+  itemName.value = name
+  numberOfItems.value += quantity
+  isNotificationVisible.value = true
+}
 
-    function hideNotification() {
-      isNotificationVisible.value = false
-    }
-
-    return {
-      products,
-      notificationText,
-      isNotificationVisible,
-      buyProduct,
-      increaseNumberOfItems,
-      hideNotification
-    }
-  }
+ const hideNotification = () => {
+  isNotificationVisible.value = false
 }
 </script>
 
@@ -84,11 +71,16 @@ export default {
   flex-direction: column
   align-items: flex-start
   justify-content: center
-  .product
+  .product-card
     margin-bottom: 8px
+    padding: 10px 20px
+    border: 1px solid rgb(23, 162, 184)
+    border-radius: 10px
     &__img
       display: block
       width: 150px
+    .hight
+      color: green
   .btn-buy
     color: #fff
     background-color: #369b6d

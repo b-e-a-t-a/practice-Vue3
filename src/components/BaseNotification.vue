@@ -21,20 +21,19 @@
 
 </template>
 
-<script>
-export default {
-  name: "BaseNotification",
-  props: {
-    message: {
-      type: String,
-      default: ''
-    },
-    isVisible: {
-      type: Boolean,
-      default: false
-    }
+<script setup>
+defineProps({
+  message: {
+    type: String,
+    default: ''
+  },
+  isVisible: {
+    type: Boolean,
+    default: false
   }
-};
+})
+
+defineEmits(['hide-notification'])
 </script>
 
 <style lang="sass" scoped>

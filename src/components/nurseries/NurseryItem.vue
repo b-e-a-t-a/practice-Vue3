@@ -15,26 +15,22 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
-export default {
-  name: 'NurseryItem',
-  props: {
-    nursery: {
-      type: Object,
-      deafult: () => ({})
-    },
-    index: {
-      type: [Number, String],
-      required: true
-    }
-  },
-  setup(props) {
-    const capacity = computed(() => props.nursery.numberOfPlaces / props.nursery.numberOfGroups );
 
-    return { capacity }
+const props = defineProps({
+  nursery: {
+    type: Object,
+    deafult: () => ({})
+  },
+  index: {
+    type: [Number, String],
+    required: true
   }
-}
+})
+
+const capacity = computed(() => props.nursery.numberOfPlaces / props.nursery.numberOfGroups );
+
 </script>
 
 <style lang="sass" scoped>

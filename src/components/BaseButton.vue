@@ -2,16 +2,13 @@
   <button class="button">{{ text }}</button>
 </template>
 
-<script>
-export default {
-  name: "BaseButton",
-  props: {
-    text: {
-      type: String,
-      default: "Click"
-    }
+<script setup>
+defineProps({
+  text: {
+    type: String,
+    default: "Click"
   }
-}
+})
 </script>
 
 <style lang="sass" scoped>

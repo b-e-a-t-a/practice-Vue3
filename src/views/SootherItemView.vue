@@ -11,24 +11,17 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import BaseLoader from "@/components/BaseLoader.vue";
 import SootherItemDetails from "@/components/apis/SootherItemDetails.vue";
 
-
-export default {
-  name: "SootherItemView",
-  components: {
-    BaseLoader,
-    SootherItemDetails
-  },
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
   }
-}
+})
+console.log('props', props.id)
 </script>
 
 <style lang="sass" scoped>

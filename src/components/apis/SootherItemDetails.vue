@@ -15,36 +15,32 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 
-export default {
-  name: "SootherItemDetails",
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
-  async setup(props) {
-    const item = ref(null);
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  }
+})
 
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/berry/${props.id}`);
+const item = ref(null);
 
-      if (response.status !== 200) {
-        throw new Error("Response status is different than 200")
-      }
+try {
+  const response = await fetch(`https://pokeapi.co/api/v2/berry/${props.id}`);
 
-      const parsedResponse = await response.json();
+  if (response.status !== 200) {
+    throw new Error("Response status is different than 200")
+  }
 
-      item.value = parsedResponse;
+  const parsedResponse = await response.json();
 
-    } catch (error) {
-      console.log(error);
-    }
-    return { item }
-  },
+  item.value = parsedResponse;
+
+ }
+catch (error) {
+  console.log(error);
 }
 </script>
 

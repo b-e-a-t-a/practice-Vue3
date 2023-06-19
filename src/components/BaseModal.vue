@@ -5,26 +5,24 @@
         <h1>Are you sure you want to log in?</h1>
       </section>
       <section class="modal__buttons">
-        <BaseButton text="NO" @click="$emit('close-modal')"/>
+        <BaseButton text="NO" @click="handleModalClosed"/>
         <BaseButton text="YES" @click="login"/>
       </section>
     </article>
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseButton from "./BaseButton.vue";
 
-export default {
-  name: "BaseModal",
-  components: { BaseButton },
-  setup() {
-    function login() {
-      console.log('Log in user somewhere')
-    }
+function login() {
+  console.log('Log in user somewhere')
+}
 
-    return { login }
-  }
+const emit = defineEmits(['close-modal'])
+
+function handleModalClosed() {
+  emit('close-modal')
 }
 </script>
 

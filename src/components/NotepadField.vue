@@ -12,20 +12,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {ref} from "vue";
 import {useLocalStorage} from "../composables/useLocalStorage";
 
-export default {
-  name: "NotepadField",
-  setup() {
-    let notes = ref("");
-    const {clearEntry} = useLocalStorage("note", notes);
+let notes = ref("");
+const {clearEntry} = useLocalStorage("note", notes);
 
-    return {
-      notes,
-      clearEntry
-    }
-  }
-}
 </script>

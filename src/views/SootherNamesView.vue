@@ -15,26 +15,18 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onErrorCaptured } from "vue";
 import SootherNamesList from '@/components/apis/SootherNamesList.vue';
 import BaseLoader from "@/components/BaseLoader.vue";
 
-export default {
-  name: 'SoothersView',
-  components: { SootherNamesList, BaseLoader },
-  setup() {
-    const error = ref(null);
+const error = ref(null);
 
-    onErrorCaptured(e => {
-      error.value = e;
-      return true;
-    });
+onErrorCaptured(e => {
+  error.value = e;
+  return true;
+});
 
-    return { error };
-  }
-
-}
 </script>
 
 <style lang="sass" scoped>

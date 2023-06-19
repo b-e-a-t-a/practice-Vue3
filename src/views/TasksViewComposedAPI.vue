@@ -20,7 +20,7 @@ import {useLocalStorage} from "../composables/useLocalStorage";
 export default {
   name: "TasksViewComposedAPI",
   components: {TaskCreator, TaskList, NotepadField},
-  setup() { //pkt wyjściowy w kontekscie danego komonentu, gdzie rejestrujemy wszystkie funkcje /composables, hooki/
+  setup() { //pkt wyjściowy w kontekscie danego komponentu, gdzie rejestrujemy wszystkie funkcje /composables, hooki/
     const {
       todos,
       onTodoCreated,
@@ -29,7 +29,7 @@ export default {
     } = useTodos()
 
     // funkcja która przyjmuje dowolną reaktywną zmienną i ją obserwuje
-    // "todos" - klucz od którym zapisywane lub odczytywane są z localStorage
+    // "todos" - klucz pod którym zapisywane lub odczytywane są z localStorage
     // todos - reaktywna lista todosów
     useLocalStorage("todos", todos)
 

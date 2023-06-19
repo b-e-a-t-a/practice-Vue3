@@ -21,30 +21,30 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "BaseInput",
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    type: {
-      type: String,
-      default: 'text'
-    },
-    placeholder: {
-      type: String,
-      default: "Type something..."
-    },
-    firstName: {
-      type: String
-    },
-    lastName: {
-      type: String
-    }
+<script setup>
+
+defineProps({
+  name: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    default: 'text'
+  },
+  placeholder: {
+    type: String,
+    default: "Type something..."
+  },
+  firstName: {
+    type: String
+  },
+  lastName: {
+    type: String
   }
-}
+})
+
+defineEmits(['update:first-name', 'update:last-name'])
 </script>
 
 <style lang="sass" scoped>

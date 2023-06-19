@@ -4,16 +4,13 @@
   </article>
 </template>
 
-<script>
-export default {
-  name: "SootherNameItem",
-  props: {
-    sootherName: {
-      type: Object,
-      default: () => {}
-    }
+<script setup>
+defineProps({
+  sootherName: {
+    type: Object,
+    default: () => {}
   }
-};
+})
 </script>
 
 <style lang="sass" scoped>

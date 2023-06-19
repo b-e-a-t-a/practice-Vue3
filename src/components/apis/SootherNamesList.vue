@@ -15,25 +15,16 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import SootherNameItem  from "./SootherNameItem.vue";
 
-export default {
-  name: "SootherNamesList",
-  components: {
-    SootherNameItem
-  },
-  async setup() {
-    const names = ref(null);
-    const response = await fetch("https://pokeapi.co/api/v2/berry/");
-    const parsedResponse = await response.json();
+const names = ref(null);
+const response = await fetch("https://pokeapi.co/api/v2/berry/");
+const parsedResponse = await response.json();
 
-    names.value = [...parsedResponse.results];
+names.value = [...parsedResponse.results];
 
-    return { names };
-  }
-};
 </script>
 
 <style lang="sass" scoped>

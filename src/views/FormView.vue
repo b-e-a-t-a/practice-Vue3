@@ -59,67 +59,45 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import BaseButton from "../components/BaseButton.vue";
 import BaseFooter from "../components/BaseFooter.vue";
 import BaseModal from "../components/BaseModal.vue";
 import BaseInput from "../components/BaseInput.vue";
 
-export default {
-  name: "FormView",
-  components: { BaseButton, BaseFooter, BaseModal, BaseInput },
-  setup() {
-    const isModalVisible = ref(false);
-    const mouseEventsArray = ref([]);
-    const keyEventsArray = ref([]);
-    const isMessageSent = ref(false);
+const isModalVisible = ref(false);
+const mouseEventsArray = ref([]);
+const keyEventsArray = ref([]);
+const isMessageSent = ref(false);
 
-    function closeModal() {
-      isModalVisible.value = false;
-    }
+ function closeModal() {
+  isModalVisible.value = false;
+}
 
-    function handleMouseEvent({type}) {
-      mouseEventsArray.value = [...mouseEventsArray.value, type]
-    }
+ function handleMouseEvent({type}) {
+  mouseEventsArray.value = [...mouseEventsArray.value, type]
+}
 
-    function handleKeyEvent({key, type}) {
-      keyEventsArray.value = [...keyEventsArray.value, {key, type}]
-    }
+ function handleKeyEvent({key, type}) {
+  keyEventsArray.value = [...keyEventsArray.value, {key, type}]
+}
 
-    function sendMessage() {
-      isMessageSent.value = true;
-    }
+ function sendMessage() {
+  isMessageSent.value = true;
+}
 
-    const text = ref("");
-    const firstName = ref("");
-    const lastName = ref("");
-    function revertText() {
-      firstName.value = firstName.value
-        .split('')
-        .reverse()
-        .join('');
-      lastName.value = lastName.value
-        .split('')
-        .reverse()
-        .join('');
-    }
-
-    return {
-      isModalVisible,
-      closeModal,
-      mouseEventsArray,
-      handleMouseEvent,
-      keyEventsArray,
-      handleKeyEvent,
-      isMessageSent,
-      sendMessage,
-      text,
-      revertText,
-      firstName,
-      lastName
-    };
-  }
+const firstName = ref("");
+const lastName = ref("");
+function revertText() {
+  firstName.value = firstName.value
+    .split('')
+    .reverse()
+    .join('');
+  lastName.value = lastName.value
+    .split('')
+    .reverse()
+    .join('');
 }
 </script>
 

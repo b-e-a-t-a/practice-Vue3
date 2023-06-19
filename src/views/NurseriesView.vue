@@ -3,10 +3,7 @@ import NurseriesList from '../components/nurseries/NurseriesList.vue';
 
 export default {
   name: 'NurseriesView',
-  components: { NurseriesList },
-  setup() {
-
-  }
+  components: { NurseriesList }
 }
 </script>
 

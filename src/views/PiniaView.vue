@@ -31,19 +31,33 @@
 
     <button @click="taskStore.$reset" class="reset-btn">Reset store</button>
   </main>
+
+  <!-- counter from other store: counter.js-->
+  <footer>
+    <div>
+      <h5>Counter from Home:</h5>
+      <button @click="increaseCount">{{ count }}</button>
+    </div>
+  </footer>
+
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTaskStore } from '@/stores/taskStore';
+import { useCounterStore } from '@/stores/counter';
 import TaskDetails from '@/components/pinia/TaskDetails.vue';
 import TaskForm from '@/components/pinia/TaskForm.vue';
 
 const taskStore = useTaskStore();
+const counterStore = useCounterStore();
 
 // get all of the differenet state properties and getters (not for actions) from a store and creates refs out of those
 const { loading, tasks, favs, favCount, totalCount} = storeToRefs(taskStore)
+
+const { count } = storeToRefs(counterStore); // destructure state and getters
+const { increaseCount } = counterStore; // destructure actions
 
 //fetch tasks from json-server localhost
 taskStore.getTasks()

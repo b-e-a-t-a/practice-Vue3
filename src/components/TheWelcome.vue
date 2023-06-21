@@ -1,11 +1,18 @@
 <script setup> // simplify usage with SFC, no setup() nor return needed
+import { ref, reactive, computed, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useCounterStore } from '@/stores/counter'
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import { ref, reactive, computed, watch } from 'vue'
+import GlobalCounter from '@/components/pinia/GlobalCounter.vue'
+
+const counterStore = useCounterStore();
+const { increaseCount, decreaseCount } = counterStore; // destructure actions
+const { count: counterCount, doubleCount, oddOrEven } = storeToRefs(counterStore); // destructure state and getters
 
 const count = ref(100);
 function incrementRef() {
@@ -66,6 +73,31 @@ watch(shares, (actualShares, prevShares) => {
 </script>
 
 <template>
+  <WelcomeItem>
+    <template #icon>
+      <SupportIcon />
+    </template>
+    <template #heading>Global counter</template>
+    <GlobalCounter />
+    <div class="btns">
+      <button @click="increaseCount">+</button>
+      <button @click="decreaseCount">-</button>
+    </div>
+    <hr/>
+    <h5>This counter is: <strong>{{ oddOrEven }}</strong></h5>
+    <hr/>
+    <div class="doubled">
+      <h5>Number doubled:</h5>
+      <p>{{ doubleCount }}</p>
+    </div>
+    <hr/>
+    <div>
+      <h5>Edit counter:</h5>
+      <input type="number" v-model="counterCount"/>
+    </div>
+    <hr />
+  </WelcomeItem>
+
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
@@ -153,11 +185,11 @@ watch(shares, (actualShares, prevShares) => {
       >StackOverflow</a>.
   </WelcomeItem>
 
-  <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
-    <template #heading>Support</template>
-
-  </WelcomeItem>
 </template>
+
+<style lang="sass" scoped>
+.btns
+  button
+    margin-right: 10px
+
+</style>

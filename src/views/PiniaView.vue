@@ -14,30 +14,36 @@
       <button @click="filter = 'favs'">Fav tasks</button>
     </nav>
 
-    <div class="loading" v-if="taskStore.loading">Loading tasks...</div>
+    <div class="loading" v-if="loading">Loading tasks...</div>
 
     <div class="task-list" v-if="filter === 'all'">
-      <p>You have {{ taskStore.totalCount }} tasks left to do</p>
-      <div v-for="(task, index) in taskStore.tasks" :key="index">
+      <p>You have {{ totalCount }} tasks left to do</p>
+      <div v-for="(task, index) in tasks" :key="index">
         <TaskDetails :task="task" />
       </div>
     </div>
     <div class="task-list" v-if="filter === 'favs'">
-      <p>You have {{ taskStore.favCount }} favs left to do</p>
-      <div v-for="(task, index) in taskStore.favs" :key="index">
+      <p>You have {{ favCount }} favs left to do</p>
+      <div v-for="(task, index) in favs" :key="index">
         <TaskDetails :task="task" />
       </div>
     </div>
+
+    <button @click="taskStore.$reset" class="reset-btn">Reset store</button>
   </main>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useTaskStore } from '@/stores/taskStore';
 import TaskDetails from '@/components/pinia/TaskDetails.vue';
 import TaskForm from '@/components/pinia/TaskForm.vue';
 
 const taskStore = useTaskStore();
+
+// get all of the differenet state properties and getters (not for actions) from a store and creates refs out of those
+const { loading, tasks, favs, favCount, totalCount} = storeToRefs(taskStore)
 
 //fetch tasks from json-server localhost
 taskStore.getTasks()
@@ -46,6 +52,8 @@ const filter = ref('all');
 </script>
 
 <style lang="sass" scoped>
+main
+  background: #f2f2f2
 header
   text-align: center
   background: #e7e7e7
@@ -90,4 +98,15 @@ header
   padding: 5px 0
   text-align: center
   margin: 30px auto
+.reset-btn
+    display: inline-block
+    margin-left: 10px
+    background: #fff
+    border: 2px solid red
+    border-radius: 4px
+    padding: 4px 8px
+    cursor: pointer
+    font-size: 1em
+    color: red
+    margin-bottom: 10px
 </style>

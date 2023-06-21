@@ -44,6 +44,11 @@ const router = createRouter({
       component: () => import('../views/FormView.vue')
     },
     {
+      path: '/pinia',
+      name: 'pinia',
+      component: () => import('../views/PiniaView.vue')
+    },
+    {
       path: '/:catchAll(.*)',
       name: 'notFound',
       component: () => import('../views/NotFound.vue')

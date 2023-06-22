@@ -26,6 +26,8 @@ export const useTaskStore = defineStore('taskStore', {
   actions: {
     async getTasks() {
       this.loading = true
+      // could be dynamic import like:
+      // const res = (await import("@/data/products.json")).default
       const res = await fetch('http://localhost:3000/tasks')
       const data = await res.json()
 

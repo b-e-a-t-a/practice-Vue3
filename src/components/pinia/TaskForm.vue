@@ -48,5 +48,5 @@ const handleSubmit = () => {
       padding: 10px
       border-radius: 6px
       color: #555
-      ont-size: 1em
+      font-size: 1em
 </style>
